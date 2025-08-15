@@ -48,9 +48,18 @@ expect_length(mean_range(df = mtcars), 2)
 expect_true(mean_range(mtcars)[1] < mean_range(mtcars)[2])
 ```
 
+
 ```{r}
 source(here::here("src", "food_cart_functions.R"))
 
 #test running function 
 name_cart(food = "strawberry", animal = "marrot")
 ```
+
+```{r}
+source(here::here("src", "cork_oak_growth.R"))
+
+# call function 
+height_t2(3, 1, 5)
+```
+

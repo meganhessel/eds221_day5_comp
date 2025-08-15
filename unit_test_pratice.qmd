@@ -6,7 +6,8 @@ editor: visual
 
 ## Unit testing with the 'testthat' package
 
-First, install necessary packages 
+First, install necessary packages
+
 ```{r}
 # install these packages 
 
@@ -15,14 +16,11 @@ library(devtools)
 library(remotes)
 ```
 
-Write a function to pratoce unit tests 
+Write a function to pratoce unit tests
 
 This function is going to find the mean value of each column, and then return the lowest and highest mean value calculated (in that order).
 
-We would expect: 
-- the output to be numeric 
-- output should be a vector of length 2 
-- the first value should be smaller than the second value 
+We would expect: - the output to be numeric - output should be a vector of length 2 - the first value should be smaller than the second value
 
 ```{r}
 mean_range <- function(df) {
@@ -39,11 +37,20 @@ mean_range <- function(df) {
 mean_range(mtcars)
 ```
 
-Write some unit tests 
+Write some unit tests
+
 ```{r}
 #| include: false
 # test the output is of length 2
 expect_length(mean_range(df = mtcars), 2)
 
+# test that first value is less than second value 
+expect_true(mean_range(mtcars)[1] < mean_range(mtcars)[2])
 ```
 
+```{r}
+source(here::here("src", "food_cart_functions.R"))
+
+#test running function 
+name_cart(food = "strawberry", animal = "marrot")
+```

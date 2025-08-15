@@ -43,27 +43,29 @@ Add line-by-line comments wheres prompted in the code below, explaining what eac
 # ------ WHAT HAPPENS HERE? ------ #
 # ------ comment line-by-line ---- #
 
-# The line below...
-time_yr <- seq(from = 0, to = 8, by = 1)
+#create a vector for time series  0- 8 yrs
+time_yr <- seq(from = 0, to = 8, by = 1) 
 
-# The line below...
-proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))
+#empty matrix for pop size output
+proj_year <- matrix(ncol = length(fish_year0), nrow = length(time_yr))  
 
-# The line below...
-proj_year[1, ] <- fish_year0
+#fills year 0 into our matrix 
+proj_year[1, ] <- fish_year0 
 
-# The for loop below...
-for (i in 2:length(time_yr)) {
-  proj_year[i,] <- fish_leslie %*% proj_year[i-1,]
-}
+# Goes year by year (seq_along(time_yr)) and fills in the estimated population size base on previous year size  
+for (i in 2:length(time_yr)) {   # start with yr1
+  proj_year[i,] <- fish_leslie %*% proj_year[i-1,] 
+} 
 
 
 # The rest is wrangling & visualization (run to check it out):
 colnames(proj_year) <- c("eggs", "fry", "juvenile", "adult")
 
+# convert to data frame
 proj_df <- data.frame(time_yr, proj_year) %>% 
-  pivot_longer(cols = -time_yr, names_to = "lifestage", values_to = "stage_population")
+  pivot_longer(cols = -time_yr, names_to = "lifestage", values_to = "stage_population") #covert wide to long
 
+# plot it 
 ggplot(data = proj_df, aes(x = time_yr, y = stage_population)) +
   geom_line(aes(color = lifestage)) +
   scale_y_log10()
